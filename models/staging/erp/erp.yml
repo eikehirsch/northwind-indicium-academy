@@ -28,3 +28,37 @@ sources:
             data_tests:
               - unique
               - not_null
+      - name: orders
+        description: Contains records of customer orders including order date, ship date, and freight costs.
+        columns:
+          - name: id
+            description: Unique identifier for each order.
+            data_tests:
+              - unique
+              - not_null
+
+      - name: order_details
+        description: Line items for each order including product, quantity, unit price, and discount.
+        data_tests:
+          - dbt_utils.unique_combination_of_columns:
+              combination_of_columns:
+                - orderid
+                - productid
+
+      - name: shippers
+        description: Contains information about shipping companies used to deliver orders.
+        columns:
+          - name: id
+            description: Unique identifier for each shipper.
+            data_tests:
+              - unique
+              - not_null
+
+      - name: customers
+        description: Contains customer data including company name and address.
+        columns:
+          - name: id
+            description: Unique identifier for each customer.
+            data_tests:
+              - unique
+              - not_null
